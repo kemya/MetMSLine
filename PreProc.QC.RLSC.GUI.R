@@ -19,6 +19,8 @@ MetMSLine is capable of operating with any peak-picking software output (.txt, .
                
 6. Most importantly the sample columns MUST be in acquisition order with the column conditioning QCs and intervally injected QCs in the correct positions." )
 
+7. Columns Names should always start with a letter and contain no spaces.
+
 ReturnVal <- tkmessageBox(title = "study parent directory",
                           message = "1. First select your study parent directory", icon = "info", type = "ok")
 study.dir<-tk_choose.dir(default = "", caption = "Select directory")
