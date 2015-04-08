@@ -32,7 +32,7 @@ PreProc.QC.RLSC<-function(Peak.picker.output.file="e.g. XCMS_output.tsv, Mzmine_
   date<-gsub("-",".",date)
   write.csv(Parameters,paste("Parameters",substr(date,1,10),".csv",sep=" "),row.names=FALSE)
   
-last.CCQC<-(grep(first.QC.name,colnames(X))+CCQC)
+last.CCQC<-(grep(first.QC.name,colnames(X))+CCQC-1)
 #peakcolumn_no<-14+SGroups
 peakcolumnsIndex<-as.numeric(1:(grep(first.QC.name,colnames(X))-1))##index of peak information columns
 columnvector<-as.numeric(last.CCQC:length(X)) #all injections numeric vector
@@ -95,7 +95,7 @@ QCs<-X.2[,QCIndices]
 #Lowess smoothing
 
 Lowess<-apply(QCs,1,lowess,f=smoother.span) #apply Lowess smoothing on QCs, arguments can be added here
-Lowess<- data.frame(matrix(unlist(Lowess), nrow=length(X$name), byrow=T)) #coerce list result to dataframe
+Lowess<- data.frame(matrix(unlist(Lowess), nrow=length(rownames(X)), byrow=T)) #coerce list result to dataframe
 Lowess<-Lowess[-c(1:length(QCs[1,]))] # remove X coordinates
 X.2[,QCIndices]<-Lowess # replace QC values with LOESS smoothed
 
